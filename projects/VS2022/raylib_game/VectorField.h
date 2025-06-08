@@ -4,6 +4,15 @@
 #include <vector>
 #include "raylib.h"
 
+enum class VectorFieldType
+{
+    Algae,
+    Octopus,
+    Waves,
+    Arround,
+    Horizontal,
+};
+
 class VectorField
 {
 public:
@@ -11,16 +20,15 @@ public:
 
     void Init();
     Vector2 GetForce(int gridX, int gridY) const;
-
-    int GetCols() const { return Columns; }
-    int GetRows() const { return Rows; }
+    void SetFieldType(VectorFieldType type);
 
 private:
     int Columns;
     int Rows;
     float FieldSpacing;
     std::vector<std::vector<Vector2>> Field;
-    float RandomSeed;
+    float Magnitude = 1.f;
+    VectorFieldType Type = VectorFieldType::Waves;
 
-    Vector2 CalculateFieldVector(int x, int y) const;
+    Vector2 GetTypedForce(int x, int y);
 };

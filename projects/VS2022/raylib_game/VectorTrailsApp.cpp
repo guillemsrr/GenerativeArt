@@ -1,8 +1,8 @@
 #include "VectorTrailsApp.h"
 
 VectorTrailsApp::VectorTrailsApp(int width, int height)
-    : ScreenWidth(width), ScreenHeight(height), ParticleSystem(vectors_spacing),
-      VectorField(width, height, vectors_spacing)
+    : ScreenWidth(width), ScreenHeight(height), ParticleSystem(Spacing),
+      VectorField(width, height, Spacing)
 {
     Init();
 }
@@ -14,22 +14,17 @@ VectorTrailsApp::~VectorTrailsApp()
 
 void VectorTrailsApp::Init()
 {
-    InitWindow(ScreenWidth, ScreenHeight, "Vector Trails");
+    InitWindow(ScreenWidth, ScreenHeight, "Generative Art");
     SetTargetFPS(60);
-
-    ParticleSystem.Init(ScreenWidth, ScreenHeight, 1000);
-    VectorField.Init();
 
     TrailLayer = LoadRenderTexture(ScreenWidth, ScreenHeight);
 
-    BeginTextureMode(TrailLayer);
-    ClearBackground(BLACK);
-    EndTextureMode();
+    Reset();
 }
 
 void VectorTrailsApp::Reset()
 {
-    ParticleSystem.Init(ScreenWidth, ScreenHeight, 1000);
+    ParticleSystem.Init(GetScreenWidth(), GetScreenHeight(), NumberParticles);
     VectorField.Init();
 
     BeginTextureMode(TrailLayer);
@@ -37,21 +32,47 @@ void VectorTrailsApp::Reset()
     EndTextureMode();
 }
 
-void VectorTrailsApp::Update()
+void VectorTrailsApp::HandleInputType()
 {
     if (IsKeyPressed(KEY_ONE))
     {
+        VectorField.SetFieldType(VectorFieldType::Algae);
         Reset();
     }
+    else if (IsKeyPressed(KEY_TWO))
+    {
+        VectorField.SetFieldType(VectorFieldType::Octopus);
+        Reset();
+    }
+    else if (IsKeyPressed(KEY_THREE))
+    {
+        VectorField.SetFieldType(VectorFieldType::Waves);
+        Reset();
+    }
+    else if (IsKeyPressed(KEY_FOUR))
+    {
+        VectorField.SetFieldType(VectorFieldType::Arround);
+        Reset();
+    }
+    else if (IsKeyPressed(KEY_FIVE))
+    {
+        VectorField.SetFieldType(VectorFieldType::Horizontal);
+        Reset();
+    }
+}
 
-    ParticleSystem.Update(VectorField, ScreenWidth, ScreenHeight);
+void VectorTrailsApp::Update()
+{
+    HandleInputType();
+
+    ParticleSystem.Update(VectorField);
 }
 
 void VectorTrailsApp::Draw()
 {
     BeginTextureMode(TrailLayer);
     BeginBlendMode(BLEND_ADDITIVE);
-    DrawRectangle(0, 0, ScreenWidth, ScreenHeight, ColorAlpha(BLACK, alpha));
+    DrawRectangle(0, 0, ScreenWidth, ScreenHeight, ColorAlpha(BLACK, RectangleFadeAlpha));
     ParticleSystem.Draw();
     EndBlendMode();
     EndTextureMode();

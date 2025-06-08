@@ -5,9 +5,6 @@
 #include "VectorField.h"
 #include "raylib.h"
 
-constexpr float vectors_spacing = 10.0f;
-constexpr float alpha = 0.015f;
-
 class VectorTrailsApp
 {
 public:
@@ -17,15 +14,20 @@ public:
     void Run();
 
 private:
-    void Init();
-    void Reset();
-    void Update();
-    void Draw();
+    const float RectangleFadeAlpha = 0.015f;
+    const float Spacing = 10.0f;
 
     int ScreenWidth;
     int ScreenHeight;
+    const int NumberParticles = 5000;
 
     ParticleSystem ParticleSystem;
     VectorField VectorField;
     RenderTexture2D TrailLayer;
+
+    void Init();
+    void Reset();
+    void HandleInputType();
+    void Update();
+    void Draw();
 };
