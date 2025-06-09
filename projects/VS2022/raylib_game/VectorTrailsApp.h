@@ -11,7 +11,7 @@ public:
     VectorTrailsApp(int width, int height);
     ~VectorTrailsApp();
 
-    void Run();
+    void Update();
 
 private:
     const float RectangleFadeAlpha = 0.015f;
@@ -28,6 +28,5 @@ private:
     void Init();
     void Reset();
     void HandleInputType();
-    void Update();
     void Draw();
 };

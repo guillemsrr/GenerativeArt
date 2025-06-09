@@ -66,6 +66,7 @@ void VectorTrailsApp::Update()
     HandleInputType();
 
     ParticleSystem.Update(VectorField);
+    Draw();
 }
 
 void VectorTrailsApp::Draw()
@@ -84,15 +85,4 @@ void VectorTrailsApp::Draw()
                    {0, 0},
                    WHITE);
     EndDrawing();
-}
-
-void VectorTrailsApp::Run()
-{
-    while (!WindowShouldClose())
-    {
-        Update();
-        Draw();
-    }
-
-    CloseWindow();
 }
