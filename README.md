@@ -2,10 +2,6 @@
 
 ![Generative art](/screenshots/trail_anim.gif)
 
-### Description
-
-Code in projects/VS2022/raylib_game/..
-
 ### Controls
 
 Click buttons 1,2,3,4,5 to try different outputs
@@ -25,6 +21,20 @@ Click buttons 1,2,3,4,5 to try different outputs
 ![Trail6](screenshots/trail6.png)
 
 ![Trail7](screenshots/trail7.png)
+
+## Build Instructions
+This project uses CMake and depends on raylib. Make sure raylib is installed or built locally.
+
+```bash
+# Create build directory
+mkdir build && cd build
+
+# Generate Visual Studio solution or Makefiles
+cmake .. -G "Visual Studio 17 2022" -A x64 -Draylib_DIR="C:/path/to/raylib/build/install/lib/cmake/raylib"
+
+# Build
+cmake --build . --config Release
+```
 
 ### License
 
